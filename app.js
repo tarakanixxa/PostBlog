@@ -10,7 +10,7 @@ const postRoutes = require("./routes/postRoutes");
 
 const app = express();
 
-const mongoUri = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/postBlog"; // fallback для локальної dev
+const mongoUri = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/postBlog";
 
 app.use(
   session({
@@ -18,8 +18,13 @@ app.use(
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
-      mongoUrl: mongoUri
-    })
+      mongoUrl: mongoUri,
+      collectionName: "sessions",
+      ttl: 14 * 24 * 60 * 60, 
+    }),
+    cookie: {
+      maxAge: 14 * 24 * 60 * 60 * 1000, 
+    },
   })
 );
 
@@ -35,10 +40,13 @@ app.use(expressLayouts);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
+
 app.use(express.static(path.join(__dirname, "public")));
+
 
 app.use("/", authRoutes);
 app.use("/", postRoutes);
+
 
 app.get("/", async (req, res) => {
   try {
@@ -56,11 +64,11 @@ app.get("/", async (req, res) => {
   }
 });
 
-
 mongoose
   .connect(mongoUri)
   .then(() => console.log("MongoDB connected"))
-  .catch(console.log);
+  .catch((err) => console.error("MongoDB connection error:", err));
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
