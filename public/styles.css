@@ -1,0 +1,190 @@
+@font-face {
+  font-family: "Baloo2"; 
+  src: url("/fonts/Baloo2-ExtraBold.ttf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #cbbaa6; 
+  color: #5c3527;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+header {
+  background-color: #cbbaa6;
+  border-bottom: 4px solid #8f6e57;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: "Baloo2", Arial, sans-serif;
+}
+
+header .logo {
+  font-size: 42px;
+  color: #7f5a58;
+  font-family: "Baloo2", Arial, sans-serif;
+}
+
+.header-right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+}
+
+
+.search-form {
+  margin-left: auto;
+  position: relative;
+  width: 200px; 
+}
+
+.search-form input {
+  width: 100%;
+  padding: 6px 28px 6px 28px; 
+  border: none;
+  border-bottom: 2px solid #5c3527; 
+  background: none;
+  outline: none;
+  font-size: 16px;
+  color: #5c3527;
+   background-image: url('/icons/search.svg');
+  background-repeat: no-repeat;
+  background-position: 6px center;
+  background-size: 16px 16px;
+}
+
+
+.search-form input::placeholder {
+  color: #5c3527;
+}
+
+.header-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+
+.header-btn,
+header button,
+header a {
+  background: none;
+  border: none;
+  padding: 6px 8px;
+  color: #7f5a58;
+  cursor: pointer;
+  font-size: 24px;
+  text-decoration: underline;
+}
+
+.header-btn:hover,
+header button:hover,
+header a:hover {
+  color: #604847;
+  text-decoration: underline;
+}
+
+
+header button {
+  color: #ffffff;
+  background-color: #b8c6d2; 
+  border-radius: 6px;
+  padding: 8px 16px;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+  z-index: 101;
+}
+
+
+.glass-card {
+  width: 350px;
+  padding: 25px;
+background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  margin-top: 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+   font-family: "QuickSand", sans-serif;
+  font-size: 18px;
+  color: #5c3527;
+font-weight: bold;
+}
+
+.modal-content button {
+  width: 100%;
+  padding: 10px;
+  background: #7f5a58;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal-content button:hover {
+  background: #654948;
+}
+
+.modal-link {
+  color: #7f5a58;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.modal-close {
+  margin-top: 10px;
+  width: 100%;
+  background: #666;
+}
+
+
+.create-btn {
+  width: 100%;
+  padding: 12px 0;
+  background: #7f5a58;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+
+.create-btn:hover {
+  background: #005fa3;
+}

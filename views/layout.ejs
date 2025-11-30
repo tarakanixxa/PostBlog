@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title><%= title || "Blog-Site" %></title>
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/create.css" />
+ <link rel="stylesheet" href="/posts.css" />
+</head>
+
+<body>
+ 
+  <header>
+    <div class="logo">Blog</div>
+<div class="header-right">
+ 
+  <form class="search-form" action="/search" method="GET">
+  <input type="text" placeholder="Search..." name="q">
+</form>
+
+
+  <div class="header-buttons">
+    <% if (!session.userId) { %>
+      <button class="header-btn" onclick="openModal('login-modal')">Login</button>
+      <button class="header-btn" onclick="openModal('register-modal')">Register</button>
+    <% } else { %>
+      <a href="/posts" class="header-btn">Create Post</a>
+      <a href="/profile/<%= session.userId %>" class="header-btn">Profile</a>
+    <% } %>
+  </div>
+</div>
+
+  </header>
+
+
+  <div class="container">
+    <%- body %>
+  </div>
+
+  
+  <div id="modal-backdrop" class="modal-backdrop" onclick="closeModal()"></div>
+
+
+  <div id="login-modal" class="modal">
+    <div class="glass-card modal-content">
+      <h2>Login</h2>
+      <form action="/login" method="POST">
+        <label>Username</label>
+        <input type="text" name="username" required />
+        <label>Password</label>
+        <input type="password" name="password" required />
+        <button type="submit">Login</button>
+      </form>
+      <p>
+        No account? <span class="modal-link" onclick="switchModal('register-modal','login-modal')">Register</span>
+      </p>
+      <button class="modal-close" onclick="closeModal()">Close</button>
+    </div>
+  </div>
+
+  
+  <div id="register-modal" class="modal">
+    <div class="glass-card modal-content">
+      <h2>Register</h2>
+      <form action="/register" method="POST">
+        <label>Username</label>
+        <input type="text" name="username" required />
+        <label>Password</label>
+        <input type="password" name="password" required />
+        <button type="submit">Register</button>
+      </form>
+      <p>
+        Already have an account? <span class="modal-link" onclick="switchModal('login-modal','register-modal')">Login</span>
+      </p>
+      <button class="modal-close" onclick="closeModal()">Close</button>
+    </div>
+  </div>
+
+
+  <script>
+    function openModal(id) {
+      document.getElementById("modal-backdrop").style.display = "block";
+      document.getElementById(id).style.display = "block";
+    }
+
+    function closeModal() {
+      document.getElementById("modal-backdrop").style.display = "none";
+      document.querySelectorAll(".modal").forEach(m => m.style.display = "none");
+    }
+
+    function switchModal(show, hide) {
+      document.getElementById(hide).style.display = "none";
+      document.getElementById(show).style.display = "block";
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,74 @@
+const express = require("express");
+const mongoose = require("mongoose");
+const path = require("path");
+const expressLayouts = require("express-ejs-layouts");
+const session = require("express-session");
+const MongoStore = require("connect-mongo");
+
+const authRoutes = require("./routes/authRoutes");
+const postRoutes = require("./routes/postRoutes");
+
+
+const app = express();
+
+
+app.use(
+  session({
+    secret: "secret-key",
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({
+      mongoUrl: "mongodb://127.0.0.1:27017/postBlog"
+    })
+  })
+);
+
+
+app.use((req, res, next) => {
+  res.locals.session = req.session;
+  next();
+});
+
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+
+app.use(expressLayouts);
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+
+
+app.use(express.static(path.join(__dirname, "public")));
+
+
+app.use("/", authRoutes);
+app.use("/", postRoutes);
+
+
+app.get("/", async (req, res) => {
+  try {
+    const Post = require("./models/postModel");
+
+    
+    const posts = await Post.find()
+      .sort({ createdAt: -1 })
+      .populate("author", "username")
+      .lean();
+
+    res.render("index", { title: "Home Page", posts });
+  } catch (err) {
+    console.error(err);
+    res.send("Server error");
+  }
+});
+
+
+
+mongoose
+  .connect("mongodb://127.0.0.1:27017/postBlog")
+  .then(() => console.log("MongoDB connected"))
+  .catch(console.log);
+
+
+app.listen(3000, () => console.log("Server running on http://localhost:3000"));

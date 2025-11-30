@@ -1,0 +1,31 @@
+<div class="create-page">
+  <h1>Create Post</h1>
+
+  <a href="/" class="back-btn">Back to Home</a>
+
+  <div class="form-container">
+      <form action="/posts/create" method="POST">
+
+          <label for="title">Post title:</label>
+          <input type="text" id="title" name="title" required>
+
+          <label for="description">Description:</label>
+          <textarea id="description" name="description" maxlength="400" required></textarea>
+
+          <div class="char-counter">
+              <span id="charCount">0</span>/400 characters
+          </div>
+
+          <button type="submit" class="create-btn">Create</button>
+      </form>
+  </div>
+</div>
+
+<script>
+    const textarea = document.getElementById("description");
+    const counter = document.getElementById("charCount");
+
+    textarea.addEventListener("input", () => {
+        counter.textContent = textarea.value.length;
+    });
+</script>

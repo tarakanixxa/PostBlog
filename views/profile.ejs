@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= title %></title>
+</head>
+<link rel="stylesheet" href="/profile.css" />
+<body>
+
+<h1>Hi, <%= user.username %>!</h1>
+
+<div style="margin-bottom: 20px;">
+<a href="/" class="back-btn">Back to Home</a>
+</div>
+
+<div class="profile-buttons">
+  <a href="/logout" class="create-btn red-btn">Logout</a>
+<a href="/delete-account" class="create-btn red-btn">Delete Account</a>
+  <button onclick="openModal('edit-profile-modal')" class="create-btn">Edit Profile</button>
+</div>
+
+
+<div id="edit-profile-modal" class="modal">
+  <div class="glass-card modal-content">
+    <h2>Edit Profile</h2>
+    <form id="edit-profile-form">
+      <label>Username</label>
+      <input type="text" name="username" value="<%= user.username %>" required />
+      
+      <label>New Password</label>
+      <input type="password" name="password" placeholder="Leave blank to keep current password" />
+
+      <button type="submit">Save Changes</button>
+    </form>
+    <button class="modal-close" onclick="closeModal()">Close</button>
+  </div>
+</div>
+
+
+<div id="modal-backdrop" class="modal-backdrop" onclick="closeModal()"></div>
+
+
+<script>
+
+  function openModal(id) {
+    document.getElementById("modal-backdrop").style.display = "block";
+    document.getElementById(id).style.display = "block";
+  }
+
+  function closeModal() {
+    document.getElementById("modal-backdrop").style.display = "none";
+    document.querySelectorAll(".modal").forEach(m => m.style.display = "none");
+  }
+
+  const form = document.getElementById("edit-profile-form");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    const data = {
+      username: formData.get("username"),
+      password: formData.get("password")
+    };
+
+    try {
+      const response = await fetch("/edit-profile", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+
+      if (response.ok) {
+        closeModal();
+        alert("Profile updated successfully!");
+      } else {
+        const text = await response.text();
+        alert("Error: " + text);
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Something went wrong");
+    }
+  });
+</script>
+
+</body>
+</html>

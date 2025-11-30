@@ -1,0 +1,133 @@
+@font-face {
+  font-family: "Baloo2";
+  src: url("/fonts/Baloo2-ExtraBold.ttf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "QuickSand";
+  src: url("/fonts/Quicksand-VariableFont_wght.ttf") format("opentype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+.create-page {
+  font-family: "QuickSand", sans-serif;
+}
+
+.create-page h1 {
+  font-size: 96px;
+  text-align: center;
+  color: #5c3527;
+  margin-top: 20px;
+  font-family: "Baloo2", sans-serif;
+
+}
+
+.create-page .form-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.create-page label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 16px;
+  color: #5c3527;
+}
+
+.create-page input[type="text"],
+.create-page textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 2px solid #b6a0b3;
+  font-size: 16px;
+  resize: none;
+  box-sizing: border-box;
+  transition: border 0.2s, box-shadow 0.2s;
+  background: #fff;
+  color: #5c3527;
+  font-family: "QuickSand", sans-serif;
+  font-size: 18px;
+  color: #5c3527;
+font-weight: bold;
+}
+
+.create-page input[type="text"]:focus,
+.create-page textarea:focus {
+  border-color: #9e7aa7;
+  box-shadow: 0 0 0 3px rgba(158, 122, 167, 0.3);
+  outline: none;
+}
+
+.create-page textarea {
+  min-height: 130px;
+}
+
+.create-page .char-counter {
+  text-align: right;
+  margin-top: -5px;
+  margin-bottom: 15px;
+  color: #7f5a58;
+  font-size: 14px;
+}
+
+.create-page .back-btn {
+  display: block;
+  width: max-content;
+  margin: 0 auto 20px;
+  padding: 0;
+  color: #5c3527;
+  font-size: 48px;
+  text-decoration: none;
+  border-radius: 12px;
+  position: relative;
+}
+
+.create-page .back-btn::before,
+.create-page .back-btn::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  height: 3px;
+  background-color: #43271d;
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+.create-page .back-btn::before { left: 0; }
+.create-page .back-btn::after { right: 0; }
+
+.create-page .back-btn:hover {
+  color: #43271d;
+}
+
+.create-page .back-btn:hover::before,
+.create-page .back-btn:hover::after {
+  width: 50%;
+}
+
+.create-page .create-btn {
+  width: 100%;
+  padding: 12px 0;
+  background: #7f5a58;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+
+.create-page .create-btn:hover {
+  background: #a3734f;
+}
