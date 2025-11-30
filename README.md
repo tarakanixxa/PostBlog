@@ -10,9 +10,9 @@
      ```npm install
      ```
 2. Running the Application:
-   ``` For Development (using Nodemon):
-     npm run dev
-   ```
-    ```For Production:
-     node app.js
-```
+  For Development (using Nodemon):
+     ```npm run dev
+     ```
+    For Production:
+    
+     ```node app.js
