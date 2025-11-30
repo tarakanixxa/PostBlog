@@ -8,9 +8,9 @@ const MongoStore = require("connect-mongo");
 const authRoutes = require("./routes/authRoutes");
 const postRoutes = require("./routes/postRoutes");
 
-
 const app = express();
 
+const mongoUri = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/postBlog"; // fallback для локальної dev
 
 app.use(
   session({
@@ -18,39 +18,32 @@ app.use(
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
-      mongoUrl: "mongodb://127.0.0.1:27017/postBlog"
+      mongoUrl: mongoUri
     })
   })
 );
-
 
 app.use((req, res, next) => {
   res.locals.session = req.session;
   next();
 });
 
-
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
 
 app.use(expressLayouts);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-
 app.use(express.static(path.join(__dirname, "public")));
-
 
 app.use("/", authRoutes);
 app.use("/", postRoutes);
-
 
 app.get("/", async (req, res) => {
   try {
     const Post = require("./models/postModel");
 
-    
     const posts = await Post.find()
       .sort({ createdAt: -1 })
       .populate("author", "username")
@@ -64,11 +57,9 @@ app.get("/", async (req, res) => {
 });
 
 
-
 mongoose
-  .connect("mongodb://127.0.0.1:27017/postBlog")
+  .connect(mongoUri)
   .then(() => console.log("MongoDB connected"))
   .catch(console.log);
-
 
 app.listen(3000, () => console.log("Server running on http://localhost:3000"));
