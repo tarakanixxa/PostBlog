@@ -13,6 +13,6 @@
   For Development (using Nodemon):
      ```npm run dev
      ```
-    For Production:
-    
-     ```node app.js
+    For Production:```
+     node app.js 
+     ```
